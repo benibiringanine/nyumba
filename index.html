@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Jeu de Construction</title>
+    <link rel="stylesheet" href="style.css" />
+    
+    <script src="Board.js"></script>
+    <script src="Display.js"></script>
+    <script src="HighScores.js"></script>
+    <script src="Keyboard.js"></script>
+    <script src="Level.js"></script>
+    <script src="Score.js"></script>
+    <script src="Tetrimino.js"></script>
+    <script src="Tetriminos.js"></script>
+    <script src="Init.js"></script>
+    
+    <script src="Utils.js"></script>
+    <script src="Storage.js"></script>
+    <script src="Sounds.js"></script>
+</head>
+
+<body>
+    <div id="container" class="mainScreen">
+        <div class="leftSide">
+            <div class="board">
+                <div class="field"></div>
+                <div class="winker"></div>
+                <div id="ghost"></div>
+                <div id="piece"></div>
+            </div>
+            
+            <div class="messages">
+                <div class="text">
+                    <h2>Nyumba</h2>
+                    
+                </div>
+                
+                <div class="levels">
+                    choisir le niveau:<br/>
+                    <div class="left" data-action="decrease"></div>
+                    <span class="leveler">1</span>
+                    <div class="right" data-action="increase"></div>
+                    <ul>
+                        <li><a href="#" data-action="start">co<u>mm</u>encer</a></li>
+                        <li><a href="#" data-action="highScores">g<u>r</u>and scores</a></li>
+                        <li><a href="#" data-action="help"><u>a</u>ide</a></li>
+                    </ul>
+                </div>
+                
+                <ul class="pause">
+                    <li><a href="#" data-action="endPause"><u>c</u>ontinuer</a></li>
+                    <li><a href="#" data-action="finishGame"><u>n</u>ouveau jeu</a></li>
+                </ul>
+                
+                <div class="input">
+                    <p>votre nom:</p>
+                    <input type="text" />
+                    <a href="#" data-action="save"><u>o</u>k</a>
+                    <a class="restart" href="#" data-action="mainScreen"><u>n</u>ouveau jeu</a>
+                </div>
+                
+                <div class="high">
+                    <div class="scores"></div>
+                    <div class="none">pas de score disponible</div>
+                    <a class="restore" href="#" data-action="restore"><u>r</u>ecommencer</a>
+                    <a class="back" href="#" data-action="mainScreen"><u>r</u>etour</a>
+                </div>
+                
+                <div class="controls">
+                    <div class="left">
+                        <b>Flèche Gauche</b><br />
+                        <b>Flèche Droite</b><br />
+                        <b>Flèche Basse</b><br />
+                        <b>X</b> ou <b>Flèche Haute</b><br />
+                        <b>Z</b><br />
+                        <b>Ctrl</b> ou <b>Epace</b><br />
+                        <b>P</b><br />
+                        <b>M</b><br />
+                        <b>Entrer</b>
+                    </div>
+                    <div class="middle">
+                        - <br /> - <br /> - <br /> - <br /> - <br />
+                        - <br /> - <br /> - <br /> -
+                    </div>
+                    <div class="right">
+                        Bouger à gauche<br />
+                        Bouger à droite<br />
+                        Chute douce<br />
+                        Rotation à droite<br />
+                        Rotation à gauche<br />
+                        Chute dure<br />
+                        Pause<br />
+                        Son/Muet<br />
+                        Commencer à jouer
+                    </div>
+                       
+                    <a class="back" href="#" data-action="mainScreen"><u>r</u>etour</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="rightSide">
+            <div class="next">
+                <div class="content">
+                    <div id="next"></div>
+                </div>
+                <div class="title">prochain</div>
+            </div>
+            <div class="level">
+                <div class="content">1</div>
+                <div class="title">niveau</div>
+            </div>
+            <div class="score">
+                <div class="content">0</div>
+                <div class="title">score</div>
+            </div>
+            <div class="lines">
+                <div class="content">0</div>
+                <div class="title">lignes</div>
+            </div>
+            
+            <div class="audio" data-action="sound">
+                <div class="waves">
+                    <div></div><div></div>
+                    <div></div><div></div>
+                </div>
+                <div class="triangle"></div>
+                <div class="box"></div>
+            </div>
+            <a class="pauser" href="#" data-action="pause"><u>p</u>ause</a>
+        </div>
+    </div>  
+    
+    
+    <div class="tetriminos">
+        <div id="i">
+            <div class="r1"    data-top="0" data-left="2"></div>
+            <div class="r3"    data-top="0" data-left="1"></div>
+            
+            <div class="r0"    data-top="1" data-left="0"></div>
+            <div class="r0 r3" data-top="1" data-left="1"></div>
+            <div class="r0 r1" data-top="1" data-left="2"></div>
+            <div class="r0"    data-top="1" data-left="3"></div>
+            
+            <div class="r2"    data-top="2" data-left="0"></div>
+            <div class="r2 r3" data-top="2" data-left="1"></div>
+            <div class="r1 r2" data-top="2" data-left="2"></div>
+            <div class="r2"    data-top="2" data-left="3"></div>
+            
+            <div class="r1"    data-top="3" data-left="2"></div>
+            <div class="r3"    data-top="3" data-left="1"></div>
+        </div>
+        
+        <div id="j">
+            <div class="r0"    data-top="0" data-left="0"></div>
+            <div class="r1 r3" data-top="0" data-left="1"></div>
+            <div class="r1"    data-top="0" data-left="2"></div>
+            
+            <div class="r0 r2" data-top="1" data-left="0"></div>
+            <div class="r0 r1 r2 r3" data-top="1" data-left="1"></div>
+            <div class="r0 r2" data-top="1" data-left="2"></div>
+            
+            <div class="r3"    data-top="2" data-left="0"></div>
+            <div class="r1 r3" data-top="2" data-left="1"></div>
+            <div class="r2"    data-top="2" data-left="2"></div>
+        </div>
+        
+        <div id="l">
+            <div class="r3"    data-top="0" data-left="0"></div>
+            <div class="r1 r3" data-top="0" data-left="1"></div>
+            <div class="r0"    data-top="0" data-left="2"></div>
+            
+            <div class="r0 r2" data-top="1" data-left="0"></div>
+            <div class="r0 r1 r2 r3" data-top="1" data-left="1"></div>
+            <div class="r0 r2" data-top="1" data-left="2"></div>
+            
+            <div class="r2"    data-top="2" data-left="0"></div>
+            <div class="r1 r3" data-top="2" data-left="1"></div>
+            <div class="r1"    data-top="2" data-left="2"></div>
+        </div>
+        
+        <div id="o">
+            <div class="r0 r1 r2 r3" data-top="0" data-left="1"></div>
+            <div class="r0 r1 r2 r3" data-top="0" data-left="2"></div>
+            
+            <div class="r0 r1 r2 r3" data-top="1" data-left="1"></div>
+            <div class="r0 r1 r2 r3" data-top="1" data-left="2"></div>
+        </div>
+        
+        <div id="s">
+            <div class="r3"    data-top="0" data-left="0"></div>
+            <div class="r0 r1" data-top="0" data-left="1"></div>
+            <div class="r0"    data-top="0" data-left="2"></div>
+            
+            <div class="r0 r3" data-top="1" data-left="0"></div>
+            <div class="r0 r1 r2 r3" data-top="1" data-left="1"></div>
+            <div class="r1 r2" data-top="1" data-left="2"></div>
+            
+            <div class="r2"    data-top="2" data-left="0"></div>
+            <div class="r2 r3" data-top="2" data-left="1"></div>
+            <div class="r1"    data-top="2" data-left="2"></div>
+        </div>
+        
+        <div id="t">
+            <div class="r0 r1 r3"    data-top="0" data-left="1"></div>
+            
+            <div class="r0 r2 r3"    data-top="1" data-left="0"></div>
+            <div class="r0 r1 r2 r3" data-top="1" data-left="1"></div>
+            <div class="r0 r1 r2"    data-top="1" data-left="2"></div>
+            
+            <div class="r1 r2 r3"    data-top="2" data-left="1"></div>
+        </div>
+        
+        <div id="z">
+            <div class="r0"    data-top="0" data-left="0"></div>
+            <div class="r0 r3" data-top="0" data-left="1"></div>
+            <div class="r1"    data-top="0" data-left="2"></div>
+            
+            <div class="r2 r3" data-top="1" data-left="0"></div>
+            <div class="r0 r1 r2 r3" data-top="1" data-left="1"></div>
+            <div class="r0 r1" data-top="1" data-left="2"></div>
+            
+            <div class="r3"    data-top="2" data-left="0"></div>
+            <div class="r1 r2" data-top="2" data-left="1"></div>
+            <div class="r2"    data-top="2" data-left="2"></div>
+        </div>
+    </div>
+</body>
+</html>
